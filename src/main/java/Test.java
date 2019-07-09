@@ -19,13 +19,8 @@ public class Test extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Button b = new Button("hi");
-        Scene scene = new Scene(b);
 
-        primaryStage.setTitle("JotArthur | Image");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
+        Treeview.display();
 
 
     }
