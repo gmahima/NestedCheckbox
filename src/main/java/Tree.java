@@ -11,7 +11,7 @@ import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class Treeview {
+public class Tree {
     static TreeView<String> treeView;
 
 

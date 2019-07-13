@@ -20,7 +20,7 @@ public class Test extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        Treeview.display();
+        Tree.display();
 
 
     }
