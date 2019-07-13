@@ -1,4 +1,6 @@
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -14,6 +16,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.cell.CheckBoxTreeCell;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.awt.*;
 
 public class Treeview {
@@ -32,6 +39,8 @@ public class Treeview {
         makeCheckBranch("Ouran", shoujo);
         makeCheckBranch("Sailor moon", shoujo);
 
+
+
         // create the treeView
         treeView = new TreeView<String>();
         treeView.setRoot(root);
@@ -39,6 +48,18 @@ public class Treeview {
         // set the cell factory
         treeView.setCellFactory(CheckBoxTreeCell.<String>forTreeView());
 
+        ObservableSet<CheckBoxTreeItem<String>> checkedItems = FXCollections.observableSet();
+
+
+        EventHandler eh = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                CheckBoxTreeItem<String> chk = (CheckBoxTreeItem<String>) event.getSource();
+                System.out.println("Action performed on checkbox " + chk);
+                findCheckedItems((CheckBoxTreeItem<String>) treeView.getRoot(), checkedItems);
+
+            }
+        };
 
 
         StackPane layout = new StackPane();
@@ -53,6 +74,18 @@ public class Treeview {
         CheckBoxTreeItem<String> item = new CheckBoxTreeItem<String>(title);
         parent.getChildren().add(item);
         return item;
+    }
+    private static void findCheckedItems(CheckBoxTreeItem<String> item, ObservableSet<CheckBoxTreeItem<String>> checkedItems) {
+        if (item.isSelected()) {
+            checkedItems.add(item);
+            System.out.println(item);
+        }
+        for (TreeItem<String> child : item.getChildren()) {
+            findCheckedItems((CheckBoxTreeItem<String>) child, checkedItems);
+        }
+        System.out.println(checkedItems);
 
     }
+
+
 }
