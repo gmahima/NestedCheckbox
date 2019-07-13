@@ -20,13 +20,18 @@ public class Tree {
 
         window.setMinWidth(250);
         CheckBoxTreeItem<String> rootItem =
-                new CheckBoxTreeItem<String>("View Source Files");
+                new CheckBoxTreeItem<String>("Tree");
         rootItem.setExpanded(false);
         final TreeView treeView = new TreeView(rootItem);
         treeView.setEditable(true);
         treeView.setCellFactory(CheckBoxTreeCell.<String>forTreeView());
         CheckBoxTreeItem<String> branch1 = makeTreeItem("branch1", rootItem);
+        CheckBoxTreeItem<String> branch2 = makeTreeItem("branch2", rootItem);
         makeTreeItem("branch1.leaf1", branch1);
+        makeTreeItem("branch1.leaf2", branch1);
+        makeTreeItem("branch2.leaf1", branch2);
+        makeTreeItem("branch2.leaf2", branch2);
+
 
 
 
