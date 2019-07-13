@@ -21,22 +21,14 @@ public class Tree {
         window.setMinWidth(250);
         CheckBoxTreeItem<String> rootItem =
                 new CheckBoxTreeItem<String>("View Source Files");
-        rootItem.setExpanded(true);
+        rootItem.setExpanded(false);
         final TreeView treeView = new TreeView(rootItem);
         treeView.setEditable(true);
         treeView.setCellFactory(CheckBoxTreeCell.<String>forTreeView());
-        for (int i = 0; i < 8; i++) {
-            final CheckBoxTreeItem<String> checkBoxTreeItem =
-                    new CheckBoxTreeItem<String>("Sample" + (i + 1));
-            checkBoxTreeItem.selectedProperty().addListener(new ChangeListener<Boolean>() {
-                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                    if (newValue) {
-                        System.out.println("The selected item is " + checkBoxTreeItem.valueProperty().get());
-                    }
-                }
-            });
-            rootItem.getChildren().add(checkBoxTreeItem);
-        }
+        CheckBoxTreeItem<String> branch1 = makeTreeItem("branch1", rootItem);
+        makeTreeItem("branch1.leaf1", branch1);
+
+
 
         StackPane layout = new StackPane();
         layout.getChildren().add(treeView);
@@ -45,5 +37,18 @@ public class Tree {
         window.setScene(scene);
         window.show();
 
+    }
+    static CheckBoxTreeItem<String> makeTreeItem(String name, CheckBoxTreeItem<String> parent) {
+        CheckBoxTreeItem<String> checkBoxTreeItem =
+                new CheckBoxTreeItem<String>(name);
+        checkBoxTreeItem.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue) {
+                    System.out.println("The selected item is " + checkBoxTreeItem.valueProperty().get());
+                }
+            }
+        });
+        parent.getChildren().add(checkBoxTreeItem);
+        return checkBoxTreeItem;
     }
 }
